@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eurotrip dos Guris 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        euro: {
+                            dark: '#0f172a',
+                            gold: '#d4af37',
+                            light: '#f8fafc'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background-color: #d4af37;
+            border-radius: 50%;
+            position: absolute;
+            left: -8px;
+            top: 6px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-euro-dark text-euro-light font-sans antialiased selection:bg-euro-gold selection:text-euro-dark">
+
+    <header class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="absolute inset-0 bg-euro-dark/80 backdrop-blur-md border-b border-white/10"></div>
+        <div class="container mx-auto px-6 py-4 relative flex justify-between items-center">
+            <a href="#" class="font-serif text-2xl font-bold tracking-wider text-euro-gold">
+                EURO<span class="text-white">TRIP</span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-widest uppercase">
+                <a href="#inicio" class="hover:text-euro-gold transition-colors">Início</a>
+                <a href="#tropa" class="hover:text-euro-gold transition-colors">A Tropa</a>
+                <a href="#roteiro" class="hover:text-euro-gold transition-colors">O Roteiro</a>
+            </nav>
+            <button class="md:hidden text-2xl text-euro-gold">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center pt-20">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&q=80&w=2020" alt="Paris" class="w-full h-full object-cover opacity-30" />
+            <div class="absolute inset-0 bg-gradient-to-b from-euro-dark/60 via-euro-dark/80 to-euro-dark"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-6 text-center mt-10">
+            <p class="text-euro-gold tracking-[0.3em] text-sm md:text-base font-semibold uppercase mb-4">Paris & Amsterdam</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                A Grande <br><span class="italic text-transparent bg-clip-text bg-gradient-to-r from-euro-gold to-yellow-200">Invasão Europeia</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-12 font-light">
+                Preparem os passaportes, a paciência do Damien e o fígado.<br>
+                A viagem do ano já tem data para começar.
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="glass-card p-6 md:p-8 rounded-2xl inline-block max-w-3xl w-full mx-auto shadow-2xl">
+                <h3 class="text-sm tracking-widest uppercase text-gray-400 mb-6">Contagem regressiva para o embarque</h3>
+                <div class="flex justify-center gap-4 md:gap-8">
+                    <div class="flex flex-col items-center">
+                        <span id="days" class="font-serif text-4xl md:text-6xl text-euro-gold font-bold">00</span>
+                        <span class="text-xs md:text-sm uppercase tracking-wider mt-2">Dias</span>
+                    </div>
+                    <span class="font-serif text-4xl md:text-6xl text-gray-600">:</span>
+                    <div class="flex flex-col items-center">
+                        <span id="hours" class="font-serif text-4xl md:text-6xl text-euro-gold font-bold">00</span>
+                        <span class="text-xs md:text-sm uppercase tracking-wider mt-2">Horas</span>
+                    </div>
+                    <span class="font-serif text-4xl md:text-6xl text-gray-600">:</span>
+                    <div class="flex flex-col items-center">
+                        <span id="minutes" class="font-serif text-4xl md:text-6xl text-euro-gold font-bold">00</span>
+                        <span class="text-xs md:text-sm uppercase tracking-wider mt-2">Min</span>
+                    </div>
+                    <span class="font-serif text-4xl md:text-6xl text-gray-600 hidden md:block">:</span>
+                    <div class="flex flex-col items-center hidden md:flex">
+                        <span id="seconds" class="font-serif text-4xl md:text-6xl text-euro-gold font-bold">00</span>
+                        <span class="text-xs md:text-sm uppercase tracking-wider mt-2">Seg</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tropa" class="py-24 bg-euro-dark relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 text-euro-gold">Os Suspeitos</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Uma delegação diplomática altamente questionável. A Europa não está preparada.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Gui -->
+                <div class="glass-card rounded-xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 fade-in group">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-900 to-euro-dark rounded-full flex items-center justify-center border-2 border-euro-gold mb-6 shadow-lg">
+                        <i class="fas fa-mug-hot text-3xl text-euro-gold group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-1">Gui</h3>
+                    <p class="text-euro-gold text-sm tracking-widest uppercase mb-4">O Gaúcho</p>
+                    <p class="text-gray-400 text-sm">Provavelmente vai tentar passar na segurança do Charles de Gaulle com uma cuia de chimarrão cheia de erva suspeita.</p>
+                </div>
+
+                <!-- Damien -->
+                <div class="glass-card rounded-xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 fade-in group">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-900 to-euro-dark rounded-full flex items-center justify-center border-2 border-euro-gold mb-6 shadow-lg">
+                        <i class="fas fa-wine-glass text-3xl text-euro-gold group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-1">Damien</h3>
+                    <p class="text-euro-gold text-sm tracking-widest uppercase mb-4">O Francês</p>
+                    <p class="text-gray-400 text-sm">Nossa única esperança de conseguir pedir uma cerveja em Paris sem sermos ignorados. Será feito de refém se as coisas derem errado.</p>
+                </div>
+
+                <!-- Wagner -->
+                <div class="glass-card rounded-xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 fade-in group">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-900 to-euro-dark rounded-full flex items-center justify-center border-2 border-euro-gold mb-6 shadow-lg relative overflow-hidden">
+                        <i class="fas fa-user-ninja text-3xl text-euro-gold group-hover:scale-110 transition-transform relative z-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-1">Wagner</h3>
+                    <p class="text-euro-gold text-sm tracking-widest uppercase mb-4">O Japonês</p>
+                    <p class="text-gray-400 text-sm">Membro co-fundador da patrulha "Caçadores de Franceses". Munido de hashi letal e zero paciência para filas no Louvre.</p>
+                </div>
+
+                <!-- Caio -->
+                <div class="glass-card rounded-xl p-8 text-center hover:-translate-y-2 transition-transform duration-300 fade-in group">
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-900 to-euro-dark rounded-full flex items-center justify-center border-2 border-euro-gold mb-6 shadow-lg">
+                        <i class="fas fa-hat-cowboy text-3xl text-euro-gold group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-1">Caio</h3>
+                    <p class="text-euro-gold text-sm tracking-widest uppercase mb-4">O Nordestino</p>
+                    <p class="text-gray-400 text-sm">Líder da caça aos franceses ao lado de Wagner. Pronto para iniciar uma confusão caso descubra que lá não vende cuscuz.</p>
+                </div>
+            </div>
+
+            <!-- Warning Banner -->
+            <div class="mt-12 bg-red-900/20 border border-red-500/30 rounded-lg p-4 text-center max-w-3xl mx-auto fade-in flex items-center justify-center gap-3">
+                <i class="fas fa-exclamation-triangle text-red-500"></i>
+                <p class="text-sm md:text-base text-gray-300">
+                    <strong class="text-red-400">ALERTA DIPLOMÁTICO:</strong> Wagner e Caio estarão operando em modo "Caça aos Franceses". Desejamos sorte ao Damien para proteger seus compatriotas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="roteiro" class="py-24 bg-[#0a101d] relative">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 text-euro-gold">Plano de Batalha</h2>
+                <p class="text-gray-400">O roteiro preliminar (que certamente não será seguido à risca por causa de ressacas e atrasos).</p>
+            </div>
+
+            <div class="relative border-l border-white/10 ml-4 md:ml-8">
+                
+                <!-- Day 1 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Domingo, 01/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">A Fuga do Brasil</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-plane-departure mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">15:40h</strong> - Voo CWB ✈️ GRU</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-plane mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">22:55h</strong> - Voo GRU ✈️ AMS (Amsterdam)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Segunda-feira, 02/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">Chegada nas Terras Baixas</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-plane-arrival mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">14:55h</strong> - Aterrissagem em Amsterdam (AMS)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-walking mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">Tarde/Noite</strong> - Red Light District e prova de Stroopwafel (Passeio livre)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6 border-euro-gold/30">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Terça-feira, 03/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">Invasão à França</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-tree mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">Manhã</strong> - Caminhada pelo Vondelpark</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-train mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">15:10h</strong> - Trem AMS 🚆 Paris (Wagner e Caio afiam as garras)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-map-marker-alt mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">18:48h</strong> - Chegada em Paris</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-coffee mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">Noite</strong> - Café Carette (Hora de julgar os croissants caros)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Quarta-feira, 04/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">Maratona Turística</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-landmark mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">09:00h</strong> - Museu do Louvre (Visita à Monalisa)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-cookie-bite mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">12:30h</strong> - Cedric (Unidade Le Meurice, rua do Louvre)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-shopping-bag mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">13:30h</strong> - Palácio Garnier, Galeria Lafayette e Uniqlo</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-camera mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">15:30h</strong> - Trocadéro</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-monument mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">16:30h</strong> - Torre Eiffel</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Quinta-feira, 05/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">O Charme Parisiense</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-church mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">09:00h</strong> - Sacré-Cœur</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-archway mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">11:30h</strong> - Arco do Triunfo e Champs-Élysées</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-leaf mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">15:00h</strong> - Jardim de Luxemburgo</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-spray-can mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">17:00h</strong> - Burdin (loja de perfumes na 79 Rue Monge)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-place-of-worship mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">18:30h</strong> - Notre Dame (Passagem pelos arredores)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-music mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">21:00h</strong> - Caveau de la Huchette (Jazz, dança e vexame)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 6 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Sexta-feira, 06/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">Retirada Estratégica</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-sun mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">Manhã</strong> - Livre em Paris (Sobrevivência pós-Caveau)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-train mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">15:17h</strong> - Trem Paris 🚆 AMS (Damien respira aliviado)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-map-marker-alt mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">18:50h</strong> - Chegada de volta em Amsterdam</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 7 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Sábado, 07/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">Arte & Batata</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-palette mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">09:30h</strong> - Rijksmuseum</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-paint-brush mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">12:00h</strong> - Museu Van Gogh</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-hamburger mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">14:30h</strong> - Batata frita no L'Pareltje (Unidade Jordaan)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-book mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">16:00h</strong> - Museu Anne Frank</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 8 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Domingo, 08/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">O Início do Fim</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-bicycle mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">Manhã/Tarde</strong> - Livre em Amsterdam (Gastar os últimos euros)</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-plane-departure mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">20:35h</strong> - Voo AMS ✈️ GRU</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Day 9 -->
+                <div class="mb-10 ml-8 fade-in relative">
+                    <div class="timeline-dot"></div>
+                    <div class="glass-card rounded-lg p-6">
+                        <span class="text-euro-gold font-bold tracking-wider uppercase text-sm">Segunda-feira, 09/11</span>
+                        <h3 class="text-xl font-serif mt-2 mb-4 text-white">A Dura Realidade</h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-plane mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">07:15h</strong> - Voo GRU ✈️ CWB</div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-home mt-1 text-gray-500"></i>
+                                <div><strong class="text-white">08:15h</strong> - Chegada em CWB (Fim do sonho, voltem a trabalhar)</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12 fade-in">
+                <p class="text-gray-500 italic text-sm">"Roteiro sujeito a alterações baseadas no nível de ressaca e cansaço."</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black py-10 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-serif text-2xl font-bold tracking-wider text-euro-gold mb-4">
+                EURO<span class="text-white">TRIP 2026</span>
+            </h2>
+            <p class="text-gray-500 text-sm mb-4">Desenvolvido para os melhores parceiros de viagem. Que a Europa nos perdoe.</p>
+            <p class="text-gray-600 text-xs">&copy; 2026 Esquadrão Caça-Franceses. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica da Contagem Regressiva
+        // Data alvo: 1 de Novembro de 2026, 15:40h
+        const targetDate = new Date("Nov 1, 2026 15:40:00").getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Formatação para ter sempre 2 dígitos
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        };
+
+        // Atualiza a cada segundo
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Chamada inicial
+
+        // Efeito do Navbar ao dar Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Animação de Fade-in ao scrollar (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Para animar apenas 1 vez
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach((element) => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
